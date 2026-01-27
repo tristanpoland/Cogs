@@ -112,7 +112,7 @@ export default function Home() {
               <p className="text-xl text-[#B8B8B8] mb-3">
                 The next generation search engine
               </p>
-              <p className="text-sm text-[#808080]">
+              <p className="text-sm text-[#909090]">
                 {indexedDocs > 0 ? `Searching across ${indexedDocs.toLocaleString()} indexed pages` : 'Powered by Rust + Tantivy'}
               </p>
             </div>
@@ -128,7 +128,7 @@ export default function Home() {
                     onKeyPress={handleKeyPress}
                     placeholder="Search the web..."
                     autoFocus
-                    className="w-full px-8 py-6 pr-40 bg-[#0A0A0A] border border-[#2A2A2A] rounded-3xl text-white placeholder-[#808080] focus:outline-none focus:border-[#00D9FF] focus:bg-[#000000] transition-all text-lg shadow-2xl"
+                    className="w-full px-8 py-6 pr-40 bg-[#0A0A0A] border border-[#2A2A2A] rounded-3xl text-white placeholder-[#909090] focus:outline-none focus:border-[#00D9FF] focus:bg-[#000000] transition-all text-lg shadow-2xl"
                   />
                   <button
                     onClick={() => handleSearch()}
@@ -154,7 +154,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-8 text-xs text-[#808080]">
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-8 text-xs text-[#909090]">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-[#00FF94] rounded-full animate-pulse"></div>
                 <span>Rust Backend</span>
@@ -179,7 +179,7 @@ export default function Home() {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Search the web..."
-                  className="w-full px-6 py-4 pr-32 bg-[#0A0A0A] border border-[#2A2A2A] rounded-2xl text-white placeholder-[#808080] focus:outline-none focus:border-[#00D9FF] focus:ring-2 focus:ring-[#00D9FF]/20 transition-all text-lg"
+                  className="w-full px-6 py-4 pr-32 bg-[#0A0A0A] border border-[#2A2A2A] rounded-2xl text-white placeholder-[#909090] focus:outline-none focus:border-[#00D9FF] focus:ring-2 focus:ring-[#00D9FF]/20 transition-all text-lg"
                 />
                 <button
                   onClick={() => handleSearch()}
@@ -200,13 +200,13 @@ export default function Home() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-bold mb-1">Search Error</h3>
-                  <p className="text-sm text-[#FF9999]">{error}</p>
+                  <p className="text-sm text-[#FFB3B3]">{error}</p>
                 </div>
               </div>
             )}
 
             {searchTime > 0 && !loading && (
-              <div className="mb-6 p-4 bg-gradient-to-r from-[#0A0A0A] to-[#050505] border border-[#1F1F1F] rounded-xl flex items-center justify-between">
+              <div className="mb-6 p-4 bg-gradient-to-r from-[#0A0A0A] to-[#050505] border border-[#2A2A2A] rounded-xl flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-gradient-to-br from-[#00D9FF]/20 to-[#7B61FF]/20 rounded-lg flex items-center justify-center">
                     <svg className="w-4 h-4 text-[#00D9FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -269,10 +269,10 @@ export default function Home() {
                                   {domain.charAt(0).toUpperCase()}
                                 </span>
                               </div>
-                              <span className="text-sm text-[#7B61FF] group-hover:text-[#00D9FF] transition-colors font-medium">
+                              <span className="text-sm text-[#8B7AFF] group-hover:text-[#00D9FF] transition-colors font-medium">
                                 {domain}
                               </span>
-                              <svg className="w-3.5 h-3.5 text-[#666666] opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <svg className="w-3.5 h-3.5 text-[#909090] opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                               </svg>
                             </div>
@@ -287,15 +287,15 @@ export default function Home() {
                           </div>
                         </div>
 
-                        <p className="text-[#C0C0C0] leading-relaxed mb-3 line-clamp-3 text-[15px]">
+                        <p className="text-[#D0D0D0] leading-relaxed mb-3 line-clamp-3 text-[15px]">
                           {result.snippet || 'No description available for this page.'}
                         </p>
 
                         <div className="flex items-center justify-between pt-3 border-t border-[#2A2A2A]">
-                          <p className="text-xs text-[#808080] truncate flex-1 mr-4 font-mono">
+                          <p className="text-xs text-[#909090] truncate flex-1 mr-4 font-mono">
                             {result.url}
                           </p>
-                          <div className="flex items-center gap-1.5 text-xs text-[#808080] flex-shrink-0">
+                          <div className="flex items-center gap-1.5 text-xs text-[#909090] flex-shrink-0">
                             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -312,7 +312,7 @@ export default function Home() {
             {!loading && results.length === 0 && query && !error && (
               <div className="text-center py-20">
                 <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-[#0A0A0A] to-[#050505] border border-[#2A2A2A] rounded-2xl flex items-center justify-center">
-                  <svg className="w-12 h-12 text-[#808080]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-12 h-12 text-[#909090]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>

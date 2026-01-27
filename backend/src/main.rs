@@ -89,9 +89,9 @@ async fn rocket() -> Rocket<Build> {
         }
     }
 
-    //// Start the background crawler
-    //println!("Starting background crawler");
-    //WebCrawler::start_background_crawler(crawler.clone());
+    // Start the background crawler
+    println!("Starting background crawler");
+    WebCrawler::start_background_crawler(crawler.clone());
 
     let state = AppState {
         indexer: indexer.clone(),

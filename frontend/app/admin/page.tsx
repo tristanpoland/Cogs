@@ -260,7 +260,7 @@ export default function AdminConsole() {
                     onChange={(e) => setNewUrl(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddUrl()}
                     placeholder="https://example.com"
-                    className="flex-1 px-4 py-3 bg-[#141414] border border-[#2A2A2A] rounded-lg text-white placeholder-[#808080] focus:outline-none focus:border-[#00D9FF] focus:ring-2 focus:ring-[#00D9FF]/20 transition-all"
+                    className="flex-1 px-4 py-3 bg-[#141414] border border-[#2A2A2A] rounded-lg text-white placeholder-[#909090] focus:outline-none focus:border-[#00D9FF] focus:ring-2 focus:ring-[#00D9FF]/20 transition-all"
                   />
                   <button
                     onClick={handleAddUrl}
@@ -273,7 +273,7 @@ export default function AdminConsole() {
 
                 <div className="max-h-[280px] overflow-y-auto space-y-2 bg-[#141414] border border-[#2A2A2A] rounded-lg p-3">
                   {queueDomains.length === 0 ? (
-                    <p className="text-[#808080] text-sm text-center py-6">
+                    <p className="text-[#909090] text-sm text-center py-6">
                       No domains in queue. Add a seed URL to start automatic crawling.
                     </p>
                   ) : (
@@ -321,7 +321,7 @@ export default function AdminConsole() {
                     ))
                   )}
                 </div>
-                <p className="text-xs text-[#808080] mt-2">
+                <p className="text-xs text-[#909090] mt-2">
                   Crawling runs automatically. Domains are removed only when fully indexed.
                 </p>
               </div>
@@ -413,7 +413,7 @@ export default function AdminConsole() {
                         {doc.snippet}
                       </p>
                     )}
-                    <div className="flex items-center gap-4 text-xs text-[#808080]">
+                    <div className="flex items-center gap-4 text-xs text-[#909090]">
                       <span className="flex items-center gap-1">
                         <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
