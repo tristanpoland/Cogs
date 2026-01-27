@@ -81,7 +81,7 @@ export default function Home() {
           {hasSearched && (
             <Link
               href="/admin"
-              className="px-4 py-2 bg-[#0A0A0A] hover:bg-[#141414] border border-[#1F1F1F] rounded-lg transition-all hover:border-[#00D9FF]/30 text-sm group"
+              className="px-4 py-2 bg-[#0A0A0A] hover:bg-[#141414] border border-[#2A2A2A] rounded-lg transition-all hover:border-[#00D9FF]/30 text-sm group"
             >
               <span className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-[#7B61FF] group-hover:text-[#00D9FF] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -109,10 +109,10 @@ export default function Home() {
                   Cogs Search
                 </span>
               </h1>
-              <p className="text-xl text-[#A0A0A0] mb-3">
+              <p className="text-xl text-[#B8B8B8] mb-3">
                 The next generation search engine
               </p>
-              <p className="text-sm text-[#666666]">
+              <p className="text-sm text-[#808080]">
                 {indexedDocs > 0 ? `Searching across ${indexedDocs.toLocaleString()} indexed pages` : 'Powered by Rust + Tantivy'}
               </p>
             </div>
@@ -128,7 +128,7 @@ export default function Home() {
                     onKeyPress={handleKeyPress}
                     placeholder="Search the web..."
                     autoFocus
-                    className="w-full px-8 py-6 pr-40 bg-[#0A0A0A] border border-[#1F1F1F] rounded-3xl text-white placeholder-[#666666] focus:outline-none focus:border-[#00D9FF] focus:bg-[#000000] transition-all text-lg shadow-2xl"
+                    className="w-full px-8 py-6 pr-40 bg-[#0A0A0A] border border-[#2A2A2A] rounded-3xl text-white placeholder-[#808080] focus:outline-none focus:border-[#00D9FF] focus:bg-[#000000] transition-all text-lg shadow-2xl"
                   />
                   <button
                     onClick={() => handleSearch()}
@@ -143,7 +143,7 @@ export default function Home() {
               <div className="flex items-center justify-center gap-6 mt-8">
                 <Link
                   href="/admin"
-                  className="flex items-center gap-2 px-6 py-3 bg-[#0A0A0A] hover:bg-[#141414] border border-[#1F1F1F] hover:border-[#7B61FF]/50 rounded-xl transition-all group"
+                  className="flex items-center gap-2 px-6 py-3 bg-[#0A0A0A] hover:bg-[#141414] border border-[#2A2A2A] hover:border-[#7B61FF]/50 rounded-xl transition-all group"
                 >
                   <svg className="w-5 h-5 text-[#7B61FF] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -154,7 +154,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-8 text-xs text-[#666666]">
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-8 text-xs text-[#808080]">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-[#00FF94] rounded-full animate-pulse"></div>
                 <span>Rust Backend</span>
@@ -179,7 +179,7 @@ export default function Home() {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Search the web..."
-                  className="w-full px-6 py-4 pr-32 bg-[#0A0A0A] border border-[#1F1F1F] rounded-2xl text-white placeholder-[#666666] focus:outline-none focus:border-[#00D9FF] focus:ring-2 focus:ring-[#00D9FF]/20 transition-all text-lg"
+                  className="w-full px-6 py-4 pr-32 bg-[#0A0A0A] border border-[#2A2A2A] rounded-2xl text-white placeholder-[#808080] focus:outline-none focus:border-[#00D9FF] focus:ring-2 focus:ring-[#00D9FF]/20 transition-all text-lg"
                 />
                 <button
                   onClick={() => handleSearch()}
@@ -214,12 +214,12 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[#A0A0A0] text-sm">Found</p>
+                    <p className="text-[#B8B8B8] text-sm">Found</p>
                     <p className="text-white font-bold text-lg">{total.toLocaleString()} results</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-[#A0A0A0] text-sm">Query time</p>
+                  <p className="text-[#B8B8B8] text-sm">Query time</p>
                   <p className="text-[#00D9FF] font-bold text-lg">{(searchTime / 1000).toFixed(3)}s</p>
                 </div>
               </div>
@@ -228,18 +228,18 @@ export default function Home() {
             {loading && (
               <div className="space-y-6">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="p-6 bg-gradient-to-br from-[#0A0A0A] to-[#050505] border border-[#1F1F1F] rounded-2xl animate-pulse">
+                  <div key={i} className="p-6 bg-gradient-to-br from-[#0A0A0A] to-[#050505] border border-[#2A2A2A] rounded-2xl animate-pulse">
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="w-6 h-6 bg-[#1F1F1F] rounded-lg"></div>
-                      <div className="h-4 bg-[#1F1F1F] rounded-lg w-32"></div>
+                      <div className="w-6 h-6 bg-[#2A2A2A] rounded-lg"></div>
+                      <div className="h-4 bg-[#2A2A2A] rounded-lg w-32"></div>
                     </div>
-                    <div className="h-6 bg-[#1F1F1F] rounded-lg w-3/4 mb-3"></div>
+                    <div className="h-6 bg-[#2A2A2A] rounded-lg w-3/4 mb-3"></div>
                     <div className="space-y-2 mb-4">
-                      <div className="h-4 bg-[#1F1F1F] rounded-lg w-full"></div>
-                      <div className="h-4 bg-[#1F1F1F] rounded-lg w-5/6"></div>
+                      <div className="h-4 bg-[#2A2A2A] rounded-lg w-full"></div>
+                      <div className="h-4 bg-[#2A2A2A] rounded-lg w-5/6"></div>
                     </div>
-                    <div className="pt-3 border-t border-[#1F1F1F]">
-                      <div className="h-3 bg-[#1F1F1F] rounded-lg w-2/3"></div>
+                    <div className="pt-3 border-t border-[#2A2A2A]">
+                      <div className="h-3 bg-[#2A2A2A] rounded-lg w-2/3"></div>
                     </div>
                   </div>
                 ))}
@@ -253,7 +253,7 @@ export default function Home() {
                   return (
                     <div
                       key={index}
-                      className="group relative p-6 bg-gradient-to-br from-[#0A0A0A] to-[#050505] hover:from-[#141414] hover:to-[#0A0A0A] border border-[#1F1F1F] hover:border-[#00D9FF]/40 rounded-2xl transition-all hover:shadow-lg hover:shadow-[#00D9FF]/5"
+                      className="group relative p-6 bg-gradient-to-br from-[#0A0A0A] to-[#050505] hover:from-[#141414] hover:to-[#0A0A0A] border border-[#2A2A2A] hover:border-[#00D9FF]/40 rounded-2xl transition-all hover:shadow-lg hover:shadow-[#00D9FF]/5"
                     >
                       <a
                         href={result.url}
@@ -287,15 +287,15 @@ export default function Home() {
                           </div>
                         </div>
 
-                        <p className="text-[#B0B0B0] leading-relaxed mb-3 line-clamp-3 text-[15px]">
+                        <p className="text-[#C0C0C0] leading-relaxed mb-3 line-clamp-3 text-[15px]">
                           {result.snippet || 'No description available for this page.'}
                         </p>
 
-                        <div className="flex items-center justify-between pt-3 border-t border-[#1F1F1F]">
-                          <p className="text-xs text-[#666666] truncate flex-1 mr-4 font-mono">
+                        <div className="flex items-center justify-between pt-3 border-t border-[#2A2A2A]">
+                          <p className="text-xs text-[#808080] truncate flex-1 mr-4 font-mono">
                             {result.url}
                           </p>
-                          <div className="flex items-center gap-1.5 text-xs text-[#666666] flex-shrink-0">
+                          <div className="flex items-center gap-1.5 text-xs text-[#808080] flex-shrink-0">
                             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -311,16 +311,16 @@ export default function Home() {
 
             {!loading && results.length === 0 && query && !error && (
               <div className="text-center py-20">
-                <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-[#0A0A0A] to-[#050505] border border-[#1F1F1F] rounded-2xl flex items-center justify-center">
-                  <svg className="w-12 h-12 text-[#666666]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-[#0A0A0A] to-[#050505] border border-[#2A2A2A] rounded-2xl flex items-center justify-center">
+                  <svg className="w-12 h-12 text-[#808080]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
                 <h3 className="text-white text-2xl font-bold mb-3">No results found</h3>
-                <p className="text-[#A0A0A0] mb-2">We couldn't find any pages matching "<span className="text-[#00D9FF]">{query}</span>"</p>
-                <div className="max-w-md mx-auto mt-6 p-4 bg-[#0A0A0A] border border-[#1F1F1F] rounded-xl">
+                <p className="text-[#B8B8B8] mb-2">We couldn't find any pages matching "<span className="text-[#00D9FF]">{query}</span>"</p>
+                <div className="max-w-md mx-auto mt-6 p-4 bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl">
                   <p className="text-sm text-[#7B61FF] font-medium mb-2">Suggestions:</p>
-                  <ul className="text-sm text-[#A0A0A0] space-y-1.5 text-left">
+                  <ul className="text-sm text-[#B8B8B8] space-y-1.5 text-left">
                     <li className="flex items-start gap-2">
                       <span className="text-[#00D9FF] mt-0.5">•</span>
                       <span>Try different or more general keywords</span>
@@ -343,7 +343,7 @@ export default function Home() {
                 <button
                   onClick={() => handleSearch(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 bg-[#0A0A0A] hover:bg-[#141414] border border-[#1F1F1F] hover:border-[#00D9FF]/30 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                  className="px-4 py-2 bg-[#0A0A0A] hover:bg-[#141414] border border-[#2A2A2A] hover:border-[#00D9FF]/30 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -369,7 +369,7 @@ export default function Home() {
                         className={`px-4 py-2 rounded-lg transition-all ${
                           currentPage === pageNum
                             ? 'bg-gradient-to-r from-[#00D9FF] to-[#00B8FF] text-black font-bold shadow-lg shadow-[#00D9FF]/30'
-                            : 'bg-[#0A0A0A] hover:bg-[#141414] border border-[#1F1F1F] hover:border-[#00D9FF]/30'
+                            : 'bg-[#0A0A0A] hover:bg-[#141414] border border-[#2A2A2A] hover:border-[#00D9FF]/30'
                         }`}
                       >
                         {pageNum}
@@ -380,7 +380,7 @@ export default function Home() {
                 <button
                   onClick={() => handleSearch(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 bg-[#0A0A0A] hover:bg-[#141414] border border-[#1F1F1F] hover:border-[#00D9FF]/30 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                  className="px-4 py-2 bg-[#0A0A0A] hover:bg-[#141414] border border-[#2A2A2A] hover:border-[#00D9FF]/30 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center gap-2"
                 >
                   Next
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

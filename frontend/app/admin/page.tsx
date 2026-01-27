@@ -159,7 +159,7 @@ export default function AdminConsole() {
 
           <Link
             href="/"
-            className="px-4 py-2 bg-[#0A0A0A] hover:bg-[#141414] border border-[#1F1F1F] rounded-lg transition-colors text-sm"
+            className="px-4 py-2 bg-[#0A0A0A] hover:bg-[#141414] border border-[#2A2A2A] rounded-lg transition-colors text-sm"
           >
             Back to Search
           </Link>
@@ -178,21 +178,21 @@ export default function AdminConsole() {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-xl p-6">
+          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 bg-[#00D9FF]/10 rounded-lg flex items-center justify-center">
                 <svg className="w-5 h-5 text-[#00D9FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-[#A0A0A0]">Total Documents</h3>
+              <h3 className="text-lg font-semibold text-[#B8B8B8]">Total Documents</h3>
             </div>
             <p className="text-3xl font-bold text-white">
               {indexStats?.total_documents.toLocaleString() || '0'}
             </p>
           </div>
 
-          <div className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-xl p-6">
+          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-6">
             <div className="flex items-center gap-3 mb-2">
               <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                 crawlStatus?.is_running ? 'bg-[#00FF94]/10 animate-pulse' : 'bg-[#7B61FF]/10'
@@ -201,21 +201,21 @@ export default function AdminConsole() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-[#A0A0A0]">Crawler Status</h3>
+              <h3 className="text-lg font-semibold text-[#B8B8B8]">Crawler Status</h3>
             </div>
             <p className="text-3xl font-bold text-white">
               {crawlStatus?.is_running ? 'Running' : 'Idle'}
             </p>
           </div>
 
-          <div className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-xl p-6">
+          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 bg-[#FF00D6]/10 rounded-lg flex items-center justify-center">
                 <svg className="w-5 h-5 text-[#FF00D6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-[#A0A0A0]">Queue Size</h3>
+              <h3 className="text-lg font-semibold text-[#B8B8B8]">Queue Size</h3>
             </div>
             <p className="text-3xl font-bold text-white">
               {crawlStatus?.queue_size.toLocaleString() || '0'}
@@ -228,16 +228,16 @@ export default function AdminConsole() {
             <h3 className="text-xl font-bold mb-4 text-[#00D9FF]">Crawl Progress</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-[#A0A0A0] text-sm mb-1">Pages Crawled</p>
+                <p className="text-[#B8B8B8] text-sm mb-1">Pages Crawled</p>
                 <p className="text-2xl font-bold">{crawlStatus.pages_crawled.toLocaleString()}</p>
               </div>
               <div>
-                <p className="text-[#A0A0A0] text-sm mb-1">Pages Indexed</p>
+                <p className="text-[#B8B8B8] text-sm mb-1">Pages Indexed</p>
                 <p className="text-2xl font-bold">{crawlStatus.pages_indexed.toLocaleString()}</p>
               </div>
             </div>
             {crawlStatus.started_at && (
-              <p className="text-[#A0A0A0] text-sm mt-4">
+              <p className="text-[#B8B8B8] text-sm mt-4">
                 Started: {new Date(crawlStatus.started_at).toLocaleString()}
               </p>
             )}
@@ -245,11 +245,11 @@ export default function AdminConsole() {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-xl p-6">
+          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-6">
             <h3 className="text-xl font-bold mb-4 text-white">Crawl Queue</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-[#A0A0A0] mb-2">
+                <label className="block text-sm font-medium text-[#B8B8B8] mb-2">
                   Seed Domains ({queueDomains.length})
                 </label>
 
@@ -260,7 +260,7 @@ export default function AdminConsole() {
                     onChange={(e) => setNewUrl(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddUrl()}
                     placeholder="https://example.com"
-                    className="flex-1 px-4 py-3 bg-[#141414] border border-[#1F1F1F] rounded-lg text-white placeholder-[#666666] focus:outline-none focus:border-[#00D9FF] focus:ring-2 focus:ring-[#00D9FF]/20 transition-all"
+                    className="flex-1 px-4 py-3 bg-[#141414] border border-[#2A2A2A] rounded-lg text-white placeholder-[#808080] focus:outline-none focus:border-[#00D9FF] focus:ring-2 focus:ring-[#00D9FF]/20 transition-all"
                   />
                   <button
                     onClick={handleAddUrl}
@@ -271,16 +271,16 @@ export default function AdminConsole() {
                   </button>
                 </div>
 
-                <div className="max-h-[280px] overflow-y-auto space-y-2 bg-[#141414] border border-[#1F1F1F] rounded-lg p-3">
+                <div className="max-h-[280px] overflow-y-auto space-y-2 bg-[#141414] border border-[#2A2A2A] rounded-lg p-3">
                   {queueDomains.length === 0 ? (
-                    <p className="text-[#666666] text-sm text-center py-6">
+                    <p className="text-[#808080] text-sm text-center py-6">
                       No domains in queue. Add a seed URL to start automatic crawling.
                     </p>
                   ) : (
                     queueDomains.map((domain, index) => (
                       <div
                         key={index}
-                        className="p-3 bg-[#0A0A0A] hover:bg-[#1A1A1A] border border-[#1F1F1F] rounded-lg group transition-colors"
+                        className="p-3 bg-[#0A0A0A] hover:bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg group transition-colors"
                       >
                         <div className="flex items-start justify-between gap-3 mb-2">
                           <div className="flex-1 min-w-0">
@@ -321,7 +321,7 @@ export default function AdminConsole() {
                     ))
                   )}
                 </div>
-                <p className="text-xs text-[#666666] mt-2">
+                <p className="text-xs text-[#808080] mt-2">
                   Crawling runs automatically. Domains are removed only when fully indexed.
                 </p>
               </div>
@@ -331,9 +331,9 @@ export default function AdminConsole() {
           <div className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-xl p-6">
             <h3 className="text-xl font-bold mb-4 text-white">Index Management</h3>
             <div className="space-y-4">
-              <div className="p-4 bg-[#141414] rounded-lg border border-[#1F1F1F]">
+              <div className="p-4 bg-[#141414] rounded-lg border border-[#2A2A2A]">
                 <h4 className="font-medium mb-2">Crawler Control</h4>
-                <p className="text-sm text-[#A0A0A0] mb-4">
+                <p className="text-sm text-[#B8B8B8] mb-4">
                   Stop the currently running crawler
                 </p>
                 <button
@@ -360,17 +360,17 @@ export default function AdminConsole() {
               </div>
 
               {indexStats && (
-                <div className="p-4 bg-[#141414] rounded-lg border border-[#1F1F1F]">
+                <div className="p-4 bg-[#141414] rounded-lg border border-[#2A2A2A]">
                   <h4 className="font-medium mb-2">Index Info</h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-[#A0A0A0]">Index Size:</span>
+                      <span className="text-[#B8B8B8]">Index Size:</span>
                       <span className="text-white">
                         {(indexStats.index_size_bytes / (1024 * 1024)).toFixed(2)} MB
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#A0A0A0]">Last Updated:</span>
+                      <span className="text-[#B8B8B8]">Last Updated:</span>
                       <span className="text-white">
                         {new Date(indexStats.last_updated).toLocaleString()}
                       </span>
@@ -383,7 +383,7 @@ export default function AdminConsole() {
         </div>
 
         {recentDocs.length > 0 && (
-          <div className="mt-8 bg-[#0A0A0A] border border-[#1F1F1F] rounded-xl p-6">
+          <div className="mt-8 bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-6">
             <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
               <svg className="w-6 h-6 text-[#00D9FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -394,7 +394,7 @@ export default function AdminConsole() {
               {recentDocs.map((doc, index) => (
                 <div
                   key={index}
-                  className="p-4 bg-[#141414] hover:bg-[#1A1A1A] border border-[#1F1F1F] rounded-lg transition-colors"
+                  className="p-4 bg-[#141414] hover:bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg transition-colors"
                 >
                   <a
                     href={doc.url}
@@ -409,11 +409,11 @@ export default function AdminConsole() {
                       {doc.url}
                     </p>
                     {doc.snippet && (
-                      <p className="text-sm text-[#A0A0A0] line-clamp-2 mb-2">
+                      <p className="text-sm text-[#B8B8B8] line-clamp-2 mb-2">
                         {doc.snippet}
                       </p>
                     )}
-                    <div className="flex items-center gap-4 text-xs text-[#666666]">
+                    <div className="flex items-center gap-4 text-xs text-[#808080]">
                       <span className="flex items-center gap-1">
                         <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
