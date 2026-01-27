@@ -66,8 +66,8 @@ export default function Home() {
       <div className="container mx-auto px-4 py-6 max-w-7xl relative z-10">
         <header className={`flex items-center ${hasSearched ? 'justify-between' : 'justify-center'} mb-${hasSearched ? '8' : '0'} transition-all`}>
           {hasSearched && (
-            <Link href="/" onClick={() => {setHasSearched(false); setQuery(''); setResults([]);}} className="flex items-center gap-3 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#00D9FF] to-[#7B61FF] rounded-xl flex items-center justify-center group-hover:shadow-lg group-hover:shadow-[#00D9FF]/50 transition-all">
+            <Link href="/" onClick={() => {setHasSearched(false); setQuery(''); setResults([]);}} className="flex items-center gap-2 group">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#00D9FF] via-[#7B61FF] to-[#FF00D6] rounded-xl flex items-center justify-center shadow-lg shadow-[#00D9FF]/30 animate-glow">
                 <svg className="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -128,14 +128,19 @@ export default function Home() {
                     onKeyPress={handleKeyPress}
                     placeholder="Search the web..."
                     autoFocus
-                    className="w-full px-8 py-6 pr-40 bg-[#0A0A0A] border border-[#2A2A2A] rounded-3xl text-white placeholder-[#909090] focus:outline-none focus:border-[#00D9FF] focus:bg-[#000000] transition-all text-lg shadow-2xl"
+                    className="w-full px-8 py-6 pr-40 bg-[#0A0A0A] border-2 border-blue-500 rounded-3xl text-white placeholder-[#909090] focus:outline-none focus:border-blue-400 focus:bg-[#000000] transition-all text-lg shadow-2xl"
                   />
                   <button
                     onClick={() => handleSearch()}
                     disabled={loading || !query.trim()}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 px-8 py-3 bg-gradient-to-r from-[#00D9FF] to-[#7B61FF] hover:from-[#00B8FF] hover:to-[#6A51FF] text-black font-bold rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-[#00D9FF]/50 hover:scale-105"
+                    className="absolute right-3 top-0 bottom-0 my-auto h-12 flex items-center px-4 bg-transparent text-[#7B61FF] font-bold rounded-2xl hover:text-[#00D9FF] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    style={{ height: '3rem' }}
                   >
-                    {loading ? 'Searching...' : 'Search'}
+                    {loading ? (
+                      <svg className="animate-spin h-5 w-5 text-[#7B61FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="4" className="opacity-25" /><path d="M4 12a8 8 0 018-8" strokeWidth="4" className="opacity-75" /></svg>
+                    ) : (
+                      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" /></svg>
+                    )}
                   </button>
                 </div>
               </div>
@@ -179,14 +184,19 @@ export default function Home() {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Search the web..."
-                  className="w-full px-6 py-4 pr-32 bg-[#0A0A0A] border border-[#2A2A2A] rounded-2xl text-white placeholder-[#909090] focus:outline-none focus:border-[#00D9FF] focus:ring-2 focus:ring-[#00D9FF]/20 transition-all text-lg"
+                  className="w-full px-6 py-4 pr-32 bg-[#0A0A0A] border-2 border-blue-500 rounded-2xl text-white placeholder-[#909090] focus:outline-none focus:border-blue-400 focus:bg-[#000000] transition-all text-lg"
                 />
                 <button
                   onClick={() => handleSearch()}
                   disabled={loading || !query.trim()}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2.5 bg-gradient-to-r from-[#00D9FF] to-[#00B8FF] hover:from-[#00B8FF] hover:to-[#0097FF] text-black font-medium rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  className="absolute right-2 top-0 bottom-0 my-auto h-10 flex items-center px-3 bg-transparent text-[#7B61FF] font-bold rounded-xl hover:text-[#00D9FF] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  style={{ height: '2.5rem' }}
                 >
-                  {loading ? 'Searching...' : 'Search'}
+                  {loading ? (
+                    <svg className="animate-spin h-5 w-5 text-[#7B61FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="4" className="opacity-25" /><path d="M4 12a8 8 0 018-8" strokeWidth="4" className="opacity-75" /></svg>
+                  ) : (
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" /></svg>
+                  )}
                 </button>
               </div>
             </div>
@@ -366,10 +376,10 @@ export default function Home() {
                       <button
                         key={i}
                         onClick={() => handleSearch(pageNum)}
-                        className={`px-4 py-2 rounded-lg transition-all ${
+                        className={`px-4 py-2 rounded-lg transition-all font-bold text-base ${
                           currentPage === pageNum
-                            ? 'bg-gradient-to-r from-[#00D9FF] to-[#00B8FF] text-black font-bold shadow-lg shadow-[#00D9FF]/30'
-                            : 'bg-[#0A0A0A] hover:bg-[#141414] border border-[#2A2A2A] hover:border-[#00D9FF]/30'
+                            ? 'bg-gradient-to-r from-[#00D9FF] to-[#7B61FF] text-white shadow-lg shadow-[#00D9FF]/30 border-2 border-[#00D9FF]'
+                            : 'bg-transparent border-2 border-[#3A3A3A] text-[#7B61FF] hover:border-[#00D9FF] hover:text-[#00D9FF]'
                         }`}
                       >
                         {pageNum}
@@ -380,7 +390,7 @@ export default function Home() {
                 <button
                   onClick={() => handleSearch(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 bg-[#0A0A0A] hover:bg-[#141414] border border-[#2A2A2A] hover:border-[#00D9FF]/30 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                  className="px-4 py-2 bg-transparent border-2 border-[#3A3A3A] text-[#7B61FF] hover:border-[#00D9FF] hover:text-[#00D9FF] rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center gap-2 font-bold text-base"
                 >
                   Next
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
