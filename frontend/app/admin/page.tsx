@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import {
-  startCrawl,
   stopCrawl,
   getCrawlStatus,
   getIndexStats,
@@ -21,8 +20,6 @@ import Link from 'next/link';
 export default function AdminConsole() {
   const [queueDomains, setQueueDomains] = useState<SeedDomain[]>([]);
   const [newUrl, setNewUrl] = useState('');
-  const [maxDepth, setMaxDepth] = useState('3');
-  const [maxPages, setMaxPages] = useState('1000');
   const [crawlStatus, setCrawlStatus] = useState<CrawlStatus | null>(null);
   const [indexStats, setIndexStats] = useState<IndexStats | null>(null);
   const [recentDocs, setRecentDocs] = useState<SearchResult[]>([]);
@@ -70,7 +67,7 @@ export default function AdminConsole() {
 
     try {
       await addToQueue(trimmedUrl);
-      setMessage({ type: 'success', text: 'Seed domain added! Crawling will start automatically.' });
+      setMessage({ type: 'success', text: 'Domain added to queue. Crawling will begin automatically.' });
       setNewUrl('');
       await fetchStatus();
     } catch (err) {
@@ -89,7 +86,7 @@ export default function AdminConsole() {
 
     try {
       await removeFromQueue(url);
-      setMessage({ type: 'success', text: 'Seed domain removed from queue!' });
+      setMessage({ type: 'success', text: 'Domain removed from queue' });
       await fetchStatus();
     } catch (err) {
       setMessage({
@@ -107,12 +104,12 @@ export default function AdminConsole() {
 
     try {
       await stopCrawl();
-      setMessage({ type: 'success', text: 'Crawl stopped successfully!' });
+      setMessage({ type: 'success', text: 'Crawler stopped' });
       await fetchStatus();
     } catch (err) {
       setMessage({
         type: 'error',
-        text: err instanceof Error ? err.message : 'Failed to stop crawl',
+        text: err instanceof Error ? err.message : 'Failed to stop crawler',
       });
     } finally {
       setLoading(false);
@@ -120,7 +117,7 @@ export default function AdminConsole() {
   };
 
   const handleClearIndex = async () => {
-    if (!confirm('Are you sure you want to clear the entire index? This cannot be undone.')) {
+    if (!confirm('Clear the entire search index? This cannot be undone.')) {
       return;
     }
 
@@ -129,7 +126,7 @@ export default function AdminConsole() {
 
     try {
       await clearIndex();
-      setMessage({ type: 'success', text: 'Index cleared successfully!' });
+      setMessage({ type: 'success', text: 'Index cleared successfully' });
       await fetchStatus();
     } catch (err) {
       setMessage({
@@ -143,23 +140,23 @@ export default function AdminConsole() {
 
   return (
     <div className="min-h-screen bg-[#000000] text-white">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <header className="flex items-center justify-between mb-12">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-[#00D9FF] to-[#7B61FF] rounded-xl flex items-center justify-center">
-              <svg className="w-7 h-7 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="container mx-auto px-4 py-6 max-w-7xl">
+        <header className="flex items-center justify-between mb-8">
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="w-10 h-10 bg-[#00D9FF] rounded-lg flex items-center justify-center">
+              <svg className="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-[#00D9FF] to-[#7B61FF] bg-clip-text text-transparent">
+            <h1 className="text-xl font-bold">
               Admin Console
             </h1>
           </Link>
 
           <Link
             href="/"
-            className="px-4 py-2 bg-[#0A0A0A] hover:bg-[#141414] border border-[#2A2A2A] rounded-lg transition-colors text-sm"
+            className="px-3 py-2 bg-[#0A0A0A] hover:bg-[#141414] border border-[#2A2A2A] rounded-lg transition-all text-sm"
           >
             Back to Search
           </Link>
@@ -167,262 +164,234 @@ export default function AdminConsole() {
 
         {message && (
           <div
-            className={`mb-6 p-4 rounded-xl border ${
+            className={`mb-6 p-4 rounded-xl border flex items-start gap-3 ${
               message.type === 'success'
                 ? 'bg-[#00FF94]/10 border-[#00FF94]/30 text-[#00FF94]'
                 : 'bg-[#FF4757]/10 border-[#FF4757]/30 text-[#FF4757]'
             }`}
           >
-            {message.text}
+            <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {message.type === 'success' ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              )}
+            </svg>
+            <p className="text-sm">{message.text}</p>
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-6">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-[#00D9FF]/10 rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-[#00D9FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-[#B8B8B8]">Total Documents</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-5">
+            <div className="flex items-center gap-2.5 mb-1">
+              <svg className="w-5 h-5 text-[#00D9FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+              <h3 className="text-sm font-medium text-[#909090]">Documents</h3>
             </div>
-            <p className="text-3xl font-bold text-white">
+            <p className="text-2xl font-bold">
               {indexStats?.total_documents.toLocaleString() || '0'}
             </p>
           </div>
 
-          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-6">
-            <div className="flex items-center gap-3 mb-2">
-              <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                crawlStatus?.is_running ? 'bg-[#00FF94]/10 animate-pulse' : 'bg-[#7B61FF]/10'
-              }`}>
-                <svg className={`w-5 h-5 ${crawlStatus?.is_running ? 'text-[#00FF94]' : 'text-[#7B61FF]'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-[#B8B8B8]">Crawler Status</h3>
+          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-5">
+            <div className="flex items-center gap-2.5 mb-1">
+              <div className={`w-2 h-2 rounded-full ${crawlStatus?.is_running ? 'bg-[#00FF94]' : 'bg-[#606060]'}`}></div>
+              <h3 className="text-sm font-medium text-[#909090]">Crawler</h3>
             </div>
-            <p className="text-3xl font-bold text-white">
+            <p className="text-2xl font-bold">
               {crawlStatus?.is_running ? 'Running' : 'Idle'}
             </p>
           </div>
 
-          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-6">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-[#FF00D6]/10 rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-[#FF00D6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-[#B8B8B8]">Queue Size</h3>
+          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-5">
+            <div className="flex items-center gap-2.5 mb-1">
+              <svg className="w-5 h-5 text-[#909090]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7h16M4 12h16M4 17h16" />
+              </svg>
+              <h3 className="text-sm font-medium text-[#909090]">Queue</h3>
             </div>
-            <p className="text-3xl font-bold text-white">
+            <p className="text-2xl font-bold">
               {crawlStatus?.queue_size.toLocaleString() || '0'}
             </p>
           </div>
         </div>
 
         {crawlStatus?.is_running && (
-          <div className="bg-gradient-to-r from-[#00D9FF]/10 to-[#7B61FF]/10 border border-[#00D9FF]/30 rounded-xl p-6 mb-8">
-            <h3 className="text-xl font-bold mb-4 text-[#00D9FF]">Crawl Progress</h3>
-            <div className="grid grid-cols-2 gap-4">
+          <div className="bg-[#00FF94]/5 border border-[#00FF94]/20 rounded-xl p-5 mb-8">
+            <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-[#B8B8B8] text-sm mb-1">Pages Crawled</p>
-                <p className="text-2xl font-bold">{crawlStatus.pages_crawled.toLocaleString()}</p>
+                <h3 className="text-base font-semibold text-[#00FF94] mb-1">Crawl in Progress</h3>
+                <p className="text-sm text-[#909090]">
+                  {crawlStatus.started_at && `Started ${new Date(crawlStatus.started_at).toLocaleString()}`}
+                </p>
+              </div>
+              <button
+                onClick={handleStopCrawl}
+                disabled={loading}
+                className="px-3 py-1.5 bg-[#FFD600] hover:bg-[#FFC700] text-black font-medium rounded-lg disabled:opacity-50 text-sm transition-all"
+              >
+                Stop
+              </button>
+            </div>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p className="text-[#909090] mb-0.5">Crawled</p>
+                <p className="text-xl font-bold">{crawlStatus.pages_crawled.toLocaleString()}</p>
               </div>
               <div>
-                <p className="text-[#B8B8B8] text-sm mb-1">Pages Indexed</p>
-                <p className="text-2xl font-bold">{crawlStatus.pages_indexed.toLocaleString()}</p>
+                <p className="text-[#909090] mb-0.5">Indexed</p>
+                <p className="text-xl font-bold">{crawlStatus.pages_indexed.toLocaleString()}</p>
               </div>
             </div>
-            {crawlStatus.started_at && (
-              <p className="text-[#B8B8B8] text-sm mt-4">
-                Started: {new Date(crawlStatus.started_at).toLocaleString()}
-              </p>
-            )}
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-6">
-            <h3 className="text-xl font-bold mb-4 text-white">Crawl Queue</h3>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-[#B8B8B8] mb-2">
-                  Seed Domains ({queueDomains.length})
-                </label>
+            <h3 className="text-lg font-semibold mb-4">Seed Domains</h3>
 
-                <div className="flex gap-2 mb-3">
-                  <input
-                    type="url"
-                    value={newUrl}
-                    onChange={(e) => setNewUrl(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleAddUrl()}
-                    placeholder="https://example.com"
-                    className="flex-1 px-4 py-3 bg-[#141414] border border-[#2A2A2A] rounded-lg text-white placeholder-[#909090] focus:outline-none focus:border-[#00D9FF] focus:ring-2 focus:ring-[#00D9FF]/20 transition-all"
-                  />
-                  <button
-                    onClick={handleAddUrl}
-                    disabled={loading}
-                    className="px-5 py-3 bg-gradient-to-r from-[#00D9FF] to-[#00B8FF] hover:from-[#00B8FF] hover:to-[#0097FF] text-black font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                  >
-                    Add
-                  </button>
+            <div className="flex gap-2 mb-4">
+              <input
+                type="url"
+                value={newUrl}
+                onChange={(e) => setNewUrl(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleAddUrl()}
+                placeholder="https://example.com"
+                className="flex-1 px-4 py-2.5 bg-[#000000] border border-[#2A2A2A] rounded-lg text-white placeholder-[#606060] focus:outline-none focus:border-[#00D9FF] transition-all text-sm"
+              />
+              <button
+                onClick={handleAddUrl}
+                disabled={loading}
+                className="px-5 py-2.5 bg-[#00D9FF] hover:bg-[#00B8FF] text-black font-medium rounded-lg disabled:opacity-50 transition-all text-sm"
+              >
+                Add
+              </button>
+            </div>
+
+            <div className="max-h-80 overflow-y-auto space-y-2">
+              {queueDomains.length === 0 ? (
+                <div className="text-center py-8 text-[#606060] text-sm">
+                  <p>No domains in queue</p>
+                  <p className="text-xs mt-1">Add a seed URL to start crawling</p>
                 </div>
-
-                <div className="max-h-[280px] overflow-y-auto space-y-2 bg-[#141414] border border-[#2A2A2A] rounded-lg p-3">
-                  {queueDomains.length === 0 ? (
-                    <p className="text-[#909090] text-sm text-center py-6">
-                      No domains in queue. Add a seed URL to start automatic crawling.
-                    </p>
-                  ) : (
-                    queueDomains.map((domain, index) => (
-                      <div
-                        key={index}
-                        className="p-3 bg-[#0A0A0A] hover:bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg group transition-colors"
-                      >
-                        <div className="flex items-start justify-between gap-3 mb-2">
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1">
-                              <div className="w-5 h-5 bg-gradient-to-br from-[#00D9FF]/20 to-[#7B61FF]/20 rounded flex items-center justify-center flex-shrink-0">
-                                <span className="text-xs font-bold text-[#00D9FF]">
-                                  {domain.domain.charAt(0).toUpperCase()}
-                                </span>
-                              </div>
-                              <p className="text-sm font-medium text-white truncate" title={domain.url}>
-                                {domain.domain}
-                              </p>
-                            </div>
-                            <p className="text-xs text-[#7B61FF] truncate mb-2" title={domain.url}>
-                              {domain.url}
-                            </p>
-                            <div className="flex items-center gap-4 text-xs">
-                              <span className="text-[#00FF94]">
-                                {domain.pages_crawled} crawled
-                              </span>
-                              <span className="text-[#FFD600]">
-                                {domain.pages_pending} pending
-                              </span>
-                            </div>
+              ) : (
+                queueDomains.map((domain, index) => (
+                  <div
+                    key={index}
+                    className="p-4 bg-[#000000] border border-[#2A2A2A] rounded-lg hover:border-[#3A3A3A] transition-all group"
+                  >
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="w-4 h-4 bg-[#1A1A1A] rounded flex items-center justify-center flex-shrink-0 text-xs font-bold text-[#606060]">
+                            {domain.domain.charAt(0).toUpperCase()}
                           </div>
-                          <button
-                            onClick={() => handleRemoveUrl(domain.url)}
-                            disabled={loading}
-                            className="opacity-0 group-hover:opacity-100 p-1.5 text-[#FF4757] hover:bg-[#FF4757]/10 rounded transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
-                            title="Remove domain"
-                          >
-                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                          </button>
+                          <p className="text-sm font-medium truncate">{domain.domain}</p>
+                        </div>
+                        <p className="text-xs text-[#606060] truncate mb-2">{domain.url}</p>
+                        <div className="flex items-center gap-3 text-xs">
+                          <span className="text-[#00FF94]">{domain.pages_crawled} crawled</span>
+                          <span className="text-[#FFD600]">{domain.pages_pending} pending</span>
                         </div>
                       </div>
-                    ))
-                  )}
-                </div>
-                <p className="text-xs text-[#909090] mt-2">
-                  Crawling runs automatically. Domains are removed only when fully indexed.
-                </p>
-              </div>
+                      <button
+                        onClick={() => handleRemoveUrl(domain.url)}
+                        disabled={loading}
+                        className="opacity-0 group-hover:opacity-100 p-1.5 text-[#FF4757] hover:bg-[#FF4757]/10 rounded transition-all disabled:opacity-50"
+                      >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
+            <p className="text-xs text-[#606060] mt-3">
+              Domains are crawled automatically and removed when complete
+            </p>
           </div>
 
-          <div className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-xl p-6">
-            <h3 className="text-xl font-bold mb-4 text-white">Index Management</h3>
+          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-6">
+            <h3 className="text-lg font-semibold mb-4">Index Management</h3>
+
             <div className="space-y-4">
-              <div className="p-4 bg-[#141414] rounded-lg border border-[#2A2A2A]">
-                <h4 className="font-medium mb-2">Crawler Control</h4>
-                <p className="text-sm text-[#B8B8B8] mb-4">
-                  Stop the currently running crawler
-                </p>
-                <button
-                  onClick={handleStopCrawl}
-                  disabled={loading || !crawlStatus?.is_running}
-                  className="w-full px-6 py-3 bg-[#FFD600] hover:bg-[#FFC700] text-black font-medium rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                >
-                  Stop Crawl
-                </button>
-              </div>
-
-              <div className="p-4 bg-[#141414] rounded-lg border border-[#FF4757]/30">
-                <h4 className="font-medium mb-2 text-[#FF4757]">Danger Zone</h4>
-                <p className="text-sm text-[#A0A0A0] mb-4">
-                  Clear all documents from the search index
-                </p>
-                <button
-                  onClick={handleClearIndex}
-                  disabled={loading}
-                  className="w-full px-6 py-3 bg-[#FF4757] hover:bg-[#FF3747] text-white font-medium rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                >
-                  Clear Index
-                </button>
-              </div>
-
               {indexStats && (
-                <div className="p-4 bg-[#141414] rounded-lg border border-[#2A2A2A]">
-                  <h4 className="font-medium mb-2">Index Info</h4>
+                <div className="p-4 bg-[#000000] border border-[#2A2A2A] rounded-lg">
+                  <h4 className="font-medium mb-3 text-sm">Index Stats</h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-[#B8B8B8]">Index Size:</span>
-                      <span className="text-white">
+                      <span className="text-[#909090]">Size</span>
+                      <span className="font-medium">
                         {(indexStats.index_size_bytes / (1024 * 1024)).toFixed(2)} MB
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#B8B8B8]">Last Updated:</span>
-                      <span className="text-white">
-                        {new Date(indexStats.last_updated).toLocaleString()}
+                      <span className="text-[#909090]">Last Updated</span>
+                      <span className="font-medium">
+                        {new Date(indexStats.last_updated).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                       </span>
                     </div>
                   </div>
                 </div>
               )}
+
+              <div className="p-4 bg-[#FF4757]/5 border border-[#FF4757]/20 rounded-lg">
+                <h4 className="font-medium mb-2 text-sm text-[#FF4757]">Danger Zone</h4>
+                <p className="text-xs text-[#909090] mb-3">
+                  Permanently delete all indexed documents
+                </p>
+                <button
+                  onClick={handleClearIndex}
+                  disabled={loading}
+                  className="w-full px-4 py-2.5 bg-[#FF4757] hover:bg-[#FF3747] text-white font-medium rounded-lg disabled:opacity-50 transition-all text-sm"
+                >
+                  Clear Index
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         {recentDocs.length > 0 && (
-          <div className="mt-8 bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-6">
-            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-              <svg className="w-6 h-6 text-[#00D9FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-6">
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <svg className="w-5 h-5 text-[#909090]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Recently Indexed Pages
+              Recently Indexed
             </h3>
-            <div className="space-y-3 max-h-[600px] overflow-y-auto">
+            <div className="space-y-2 max-h-96 overflow-y-auto">
               {recentDocs.map((doc, index) => (
-                <div
+                <a
                   key={index}
-                  className="p-4 bg-[#141414] hover:bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg transition-colors"
+                  href={doc.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block p-4 bg-[#000000] hover:bg-[#0F0F0F] border border-[#2A2A2A] hover:border-[#3A3A3A] rounded-lg transition-all group"
                 >
-                  <a
-                    href={doc.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block group"
-                  >
-                    <h4 className="font-medium text-[#00D9FF] group-hover:text-[#00B8FF] transition-colors line-clamp-1 mb-1">
-                      {doc.title || 'Untitled'}
-                    </h4>
-                    <p className="text-xs text-[#7B61FF] mb-2 truncate">
-                      {doc.url}
+                  <h4 className="font-medium text-[#00D9FF] group-hover:text-[#00B8FF] transition-colors line-clamp-1 mb-1 text-sm">
+                    {doc.title || 'Untitled'}
+                  </h4>
+                  <p className="text-xs text-[#606060] mb-2 truncate font-mono">
+                    {doc.url}
+                  </p>
+                  {doc.snippet && (
+                    <p className="text-sm text-[#909090] line-clamp-2 mb-2">
+                      {doc.snippet}
                     </p>
-                    {doc.snippet && (
-                      <p className="text-sm text-[#B8B8B8] line-clamp-2 mb-2">
-                        {doc.snippet}
-                      </p>
-                    )}
-                    <div className="flex items-center gap-4 text-xs text-[#909090]">
-                      <span className="flex items-center gap-1">
-                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {new Date(doc.last_crawled).toLocaleString()}
-                      </span>
-                    </div>
-                  </a>
-                </div>
+                  )}
+                  <div className="flex items-center gap-3 text-xs text-[#606060]">
+                    <span className="flex items-center gap-1">
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {new Date(doc.last_crawled).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    </span>
+                  </div>
+                </a>
               ))}
             </div>
           </div>
